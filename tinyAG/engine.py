@@ -62,8 +62,7 @@ class Value:
         return self + (-other)
     
     def tanh(self):
-        x = self.data
-        t = (math.exp(2*x) - 1) / (math.exp(2*x) + 1)
+        t = (math.exp(2*self.data) - 1) / (math.exp(2*self.data) + 1)
         out = Value(t, (self,), 'tanh')
 
         def _backward():
@@ -72,12 +71,50 @@ class Value:
 
         return out
     
+    def relu(self):
+        out = Value(max(self.data, 0), (self,), 'ReLU')
+
+        def _backward():
+            self.grad += 1.0 * out.grad if out.data > 0.0 else 0.0
+        out._backward = _backward
+
+        return out
+
+    def sigmoid(self):
+        x = math.exp(self.data * -1.0)
+        out = Value(1.0 / (1.0 + x), (self,), 'sigmoid')
+
+        def _bakcward():
+            self.grad += (x / (1.0 + x)**2.0) * out.grad
+        out._backward = _bakcward
+
+        return out
+
+    def arctan(self):
+        out = Value(math.atan(self.data), (self,), 'ArcTan')
+
+        def _backward():
+            self.grad += (1.0 / (1.0 + self.data**2.0)) * out.grad
+        out._backward = _backward
+
+        return out
+
+    def softplus(self):
+        out = Value(math.log(1 + math.exp(self.data)), (self,), 'SoftPlus')
+
+        def _backward():
+            self.grad += (1.0 / (1.0 + math.exp(self.data * -1.0))) * out.grad
+        out._backward = _backward
+
+        return out
+
     def exp(self):
         out = Value(math.exp(self.data), (self,), 'exp')
 
         def _backward():
             self.grad += out.data * out.grad
         out._backward = _backward
+
         return out
 
     def backward(self):
