@@ -6,6 +6,6 @@
 This is a tiny AutoGrad (tinyAG) engine which implements backpropagation through a neural network. I am inspired by Andrej Karpathy's tutorial on MLP and would like to share my version of the code here.
 
 <p align="center">
-  <img src="/classification_plot.png" width="400" align="right">
-  <img src="/dataset_scatter.png" width="400" align="left">
+  <img src="/classification_plot.png" width="350" align="right">
+  <img src="/dataset_scatter.png" width="350" align="left">
 </p>
