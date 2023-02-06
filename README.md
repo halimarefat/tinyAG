@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/nn_gdot.svg" width="550" align="center">
+  <img src="/nn_gdot.svg" width="750" align="center">
 </p>
 
 # tinyAG
